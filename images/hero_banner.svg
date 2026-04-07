@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#76B900;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4A90D9;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="300" fill="url(#bg)" rx="12"/>
+
+  <!-- Decorative grid lines -->
+  <g opacity="0.05" stroke="white" stroke-width="1">
+    <line x1="0" y1="60" x2="800" y2="60"/>
+    <line x1="0" y1="120" x2="800" y2="120"/>
+    <line x1="0" y1="180" x2="800" y2="180"/>
+    <line x1="0" y1="240" x2="800" y2="240"/>
+    <line x1="160" y1="0" x2="160" y2="300"/>
+    <line x1="320" y1="0" x2="320" y2="300"/>
+    <line x1="480" y1="0" x2="480" y2="300"/>
+    <line x1="640" y1="0" x2="640" y2="300"/>
+  </g>
+
+  <!-- Model blocks -->
+  <!-- Reasoning -->
+  <rect x="60" y="140" width="120" height="80" rx="8" fill="#76B900" opacity="0.9"/>
+  <text x="120" y="170" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13" font-weight="bold">Reasoning</text>
+  <text x="120" y="190" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="11" opacity="0.8">12B active</text>
+  <text x="120" y="208" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" opacity="0.6">120B total</text>
+
+  <!-- Safety -->
+  <rect x="210" y="160" width="100" height="60" rx="8" fill="#FF6B35" opacity="0.9"/>
+  <text x="260" y="185" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13" font-weight="bold">Safety</text>
+  <text x="260" y="205" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="11" opacity="0.8">4B params</text>
+
+  <!-- Embed -->
+  <rect x="340" y="170" width="90" height="50" rx="8" fill="#4A90D9" opacity="0.9"/>
+  <text x="385" y="192" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13" font-weight="bold">Embed</text>
+  <text x="385" y="210" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="11" opacity="0.8">1.7B</text>
+
+  <!-- Rerank -->
+  <rect x="460" y="170" width="90" height="50" rx="8" fill="#4A90D9" opacity="0.9"/>
+  <text x="505" y="192" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13" font-weight="bold">Rerank</text>
+  <text x="505" y="210" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="11" opacity="0.8">1.7B</text>
+
+  <!-- Voice -->
+  <rect x="580" y="150" width="110" height="70" rx="8" fill="#9B59B6" opacity="0.9"/>
+  <text x="635" y="178" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13" font-weight="bold">VoiceChat</text>
+  <text x="635" y="198" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="11" opacity="0.8">12B params</text>
+  <text x="635" y="213" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" opacity="0.6">&lt;300ms</text>
+
+  <!-- Connection line -->
+  <line x1="60" y1="130" x2="700" y2="130" stroke="url(#accent)" stroke-width="2" opacity="0.5"/>
+  <circle cx="120" cy="130" r="4" fill="#76B900"/>
+  <circle cx="260" cy="130" r="4" fill="#FF6B35"/>
+  <circle cx="385" cy="130" r="4" fill="#4A90D9"/>
+  <circle cx="505" cy="130" r="4" fill="#4A90D9"/>
+  <circle cx="635" cy="130" r="4" fill="#9B59B6"/>
+
+  <!-- Router label -->
+  <rect x="330" y="110" width="120" height="24" rx="12" fill="white" opacity="0.1"/>
+  <text x="390" y="126" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="11" opacity="0.7">Orchestration Layer</text>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="26" font-weight="bold">Right-Sizing AI Agents</text>
+  <text x="400" y="75" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="15" opacity="0.7">Why Specialization Beats Scale</text>
+
+  <!-- Accent bar -->
+  <rect x="300" y="88" width="200" height="3" rx="1.5" fill="url(#accent)" opacity="0.8"/>
+
+  <!-- Footer -->
+  <text x="400" y="275" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="11" opacity="0.4">Based on NVIDIA Nemotron 3 — Purpose-built models for production agentic AI</text>
+</svg>
