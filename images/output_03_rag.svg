@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560">
+  <defs>
+    <linearGradient id="tbg3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2b2b2b"/>
+      <stop offset="100%" style="stop-color:#1a1a1a"/>
+    </linearGradient>
+  </defs>
+  <rect width="820" height="560" rx="10" fill="url(#tbg3)"/>
+  <rect width="820" height="36" rx="10" fill="#3a3a3a"/>
+  <rect x="0" y="26" width="820" height="10" fill="#3a3a3a"/>
+  <circle cx="20" cy="18" r="6" fill="#ff5f57"/>
+  <circle cx="40" cy="18" r="6" fill="#febc2e"/>
+  <circle cx="60" cy="18" r="6" fill="#28c840"/>
+  <text x="410" y="22" text-anchor="middle" fill="#999" font-family="monospace" font-size="12">python3 examples/03_multimodal_rag/multimodal_rag.py</text>
+
+  <g font-family="'Menlo', 'Monaco', 'Courier New', monospace" font-size="12.5">
+    <text x="20" y="60" fill="#6af">════════════════════════════════════════════════════════</text>
+    <text x="20" y="78" fill="#fff" font-weight="bold">  MULTIMODAL RAG: Specialized Embed + Rerank Pipeline</text>
+    <text x="20" y="96" fill="#aaa">  Each stage uses the MINIMUM model for its task</text>
+
+    <!-- Embedding phase -->
+    <text x="20" y="126" fill="#4A90D9">  [EMBED] Encoding 8 documents with nvidia/llama-3.2-nv-embedqa-1b-v2</text>
+    <text x="20" y="144" fill="#4A90D9">  [EMBED] Done: <tspan fill="#febc2e">2048-dim</tspan> vectors in <tspan fill="#febc2e">1280ms</tspan></text>
+
+    <!-- Query -->
+    <text x="20" y="174" fill="#fff" font-weight="bold">  QUERY: How does Nemotron 3 Super achieve efficiency</text>
+    <text x="20" y="192" fill="#fff" font-weight="bold">  despite having 120B parameters?</text>
+
+    <!-- Stage 1 -->
+    <text x="20" y="222" fill="#4A90D9">  [STAGE 1] Vector similarity search (top-5)</text>
+    <text x="20" y="240" fill="#ccc">            <tspan fill="#28c840">0.5268</tspan> — Nemotron 3 Super Architecture</text>
+    <text x="20" y="258" fill="#ccc">            <tspan fill="#febc2e">0.4340</tspan> — Benchmark Performance</text>
+    <text x="20" y="276" fill="#ccc">            <tspan fill="#888">0.3273</tspan> — Production Deployment Guide</text>
+    <text x="20" y="294" fill="#ccc">            <tspan fill="#888">0.3056</tspan> — VoiceChat End-to-End Speech</text>
+    <text x="20" y="312" fill="#ccc">            <tspan fill="#888">0.2863</tspan> — Content Safety Classification</text>
+    <text x="20" y="330" fill="#888">  Retrieved 5 candidates in <tspan fill="#febc2e">424ms</tspan></text>
+
+    <!-- Stage 2 -->
+    <text x="20" y="360" fill="#9B59B6">  [STAGE 2] Cross-encoder reranking (top-3)</text>
+    <text x="20" y="378" fill="#ccc">            Nemotron 3 Super Architecture</text>
+    <text x="20" y="396" fill="#888">  Reranked in <tspan fill="#febc2e">488ms</tspan></text>
+
+    <!-- Stage 3 -->
+    <text x="20" y="426" fill="#76B900">  [STAGE 3] Generating answer with Nemotron Super (12B active)</text>
+    <text x="20" y="444" fill="#fff">  Answer: Nemotron 3 Super achieves efficiency despite having</text>
+    <text x="20" y="462" fill="#fff">  120B parameters by only activating <tspan fill="#28c840">12B parameters per</tspan></text>
+    <text x="20" y="480" fill="#fff">  <tspan fill="#28c840">inference pass</tspan>.</text>
+    <text x="20" y="498" fill="#888">  Generated in <tspan fill="#febc2e">5884ms</tspan> | Total pipeline: <tspan fill="#febc2e">6796ms</tspan></text>
+
+    <!-- Key insight -->
+    <text x="20" y="528" fill="#6af">════════════════════════════════════════════════════════</text>
+    <text x="20" y="548" fill="#28c840">  Three-stage pipeline: 1.7B → 1.7B → 12B</text>
+  </g>
+</svg>

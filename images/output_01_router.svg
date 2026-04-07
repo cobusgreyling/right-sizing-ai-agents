@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 520">
+  <defs>
+    <linearGradient id="tbg1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2b2b2b"/>
+      <stop offset="100%" style="stop-color:#1a1a1a"/>
+    </linearGradient>
+  </defs>
+  <!-- Window chrome -->
+  <rect width="820" height="520" rx="10" fill="url(#tbg1)"/>
+  <rect width="820" height="36" rx="10" fill="#3a3a3a"/>
+  <rect x="0" y="26" width="820" height="10" fill="#3a3a3a"/>
+  <circle cx="20" cy="18" r="6" fill="#ff5f57"/>
+  <circle cx="40" cy="18" r="6" fill="#febc2e"/>
+  <circle cx="60" cy="18" r="6" fill="#28c840"/>
+  <text x="410" y="22" text-anchor="middle" fill="#999" font-family="monospace" font-size="12">python3 examples/01_specialized_routing/agent_router.py</text>
+
+  <g font-family="'Menlo', 'Monaco', 'Courier New', monospace" font-size="12.5">
+    <!-- Header -->
+    <text x="20" y="60" fill="#6af"><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan><tspan>=</tspan></text>
+    <text x="20" y="78" fill="#fff" font-weight="bold">  RIGHT-SIZING AI AGENTS: Specialized Model Router</text>
+    <text x="20" y="96" fill="#aaa">  Demonstrating intent-based routing to purpose-built models</text>
+
+    <!-- Query 1 -->
+    <text x="20" y="130" fill="#888">Query: Analyze the trade-offs between using a single large...</text>
+    <text x="20" y="148" fill="#76B900">Classified intent: REASONING</text>
+    <text x="20" y="166" fill="#ccc">  -&gt; Routing to REASONING model (<tspan fill="#76B900">12B active / 120B total</tspan>)</text>
+    <text x="20" y="184" fill="#888">Tokens used: <tspan fill="#febc2e">1083</tspan></text>
+
+    <!-- Query 2 -->
+    <text x="20" y="214" fill="#888">Query: Check content safety: classify whether the following...</text>
+    <text x="20" y="232" fill="#FF6B35">Classified intent: SAFETY</text>
+    <text x="20" y="250" fill="#ccc">  -&gt; Routing to SAFETY model (<tspan fill="#FF6B35">8B</tspan>)</text>
+    <text x="20" y="268" fill="#888">Tokens used: <tspan fill="#febc2e">128</tspan></text>
+
+    <!-- Query 3 -->
+    <text x="20" y="298" fill="#888">Query: Generate a semantic search embedding for: 'NVIDIA...</text>
+    <text x="20" y="316" fill="#4A90D9">Classified intent: EMBEDDING</text>
+    <text x="20" y="334" fill="#ccc">  -&gt; Routing to EMBEDDING model (<tspan fill="#4A90D9">1.7B</tspan>)</text>
+    <text x="20" y="352" fill="#888">Tokens used: <tspan fill="#febc2e">22</tspan></text>
+
+    <!-- Query 4 -->
+    <text x="20" y="382" fill="#888">Query: What is the capital of France?</text>
+    <text x="20" y="400" fill="#ccc">Classified intent: GENERAL</text>
+    <text x="20" y="418" fill="#ccc">  -&gt; Routing to GENERAL model (<tspan fill="#ccc">12B active</tspan>)</text>
+    <text x="20" y="436" fill="#888">Tokens used: <tspan fill="#febc2e">36</tspan></text>
+
+    <!-- Summary -->
+    <text x="20" y="466" fill="#6af">════════════════════════════════════════════════</text>
+    <text x="20" y="484" fill="#fff" font-weight="bold">  ROUTING SUMMARY</text>
+    <text x="20" y="502" fill="#28c840">  Key insight: Each task used a model RIGHT-SIZED for the job.</text>
+  </g>
+</svg>

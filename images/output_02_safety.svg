@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 480">
+  <defs>
+    <linearGradient id="tbg2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2b2b2b"/>
+      <stop offset="100%" style="stop-color:#1a1a1a"/>
+    </linearGradient>
+  </defs>
+  <rect width="820" height="480" rx="10" fill="url(#tbg2)"/>
+  <rect width="820" height="36" rx="10" fill="#3a3a3a"/>
+  <rect x="0" y="26" width="820" height="10" fill="#3a3a3a"/>
+  <circle cx="20" cy="18" r="6" fill="#ff5f57"/>
+  <circle cx="40" cy="18" r="6" fill="#febc2e"/>
+  <circle cx="60" cy="18" r="6" fill="#28c840"/>
+  <text x="410" y="22" text-anchor="middle" fill="#999" font-family="monospace" font-size="12">python3 examples/02_safety_classifier/safety_check.py</text>
+
+  <g font-family="'Menlo', 'Monaco', 'Courier New', monospace" font-size="12.5">
+    <text x="20" y="60" fill="#6af">════════════════════════════════════════════════════════</text>
+    <text x="20" y="78" fill="#fff" font-weight="bold">  SAFETY-AS-A-SERVICE: Dedicated Safety Classification</text>
+    <text x="20" y="96" fill="#aaa">  Using lightweight 4B model as inline guardrail</text>
+
+    <!-- Query 1 -->
+    <text x="20" y="126" fill="#febc2e">--- Query 1: Explain the benefits of renewable energy...</text>
+    <text x="20" y="148" fill="#ccc">  [1/3] Checking input safety...</text>
+    <text x="20" y="166" fill="#28c840">        Safe=True <tspan fill="#888">(2109ms)</tspan></text>
+    <text x="20" y="184" fill="#ccc">  [2/3] Generating response...</text>
+    <text x="20" y="202" fill="#76B900">        Generated <tspan fill="#888">(8922ms)</tspan></text>
+    <text x="20" y="220" fill="#ccc">  [3/3] Checking output safety...</text>
+    <text x="20" y="238" fill="#28c840">        Safe=True <tspan fill="#888">(997ms)</tspan></text>
+
+    <text x="20" y="264" fill="#fff">  Response: Here are the key benefits of renewable energy</text>
+    <text x="20" y="282" fill="#fff">  sources for developing nations...</text>
+    <text x="20" y="304" fill="#ccc">  Filtered: <tspan fill="#28c840">False</tspan></text>
+    <text x="20" y="322" fill="#ccc">  Safety confidence: <tspan fill="#28c840">1.0</tspan></text>
+    <text x="20" y="340" fill="#ccc">  Reasoning latency:  <tspan fill="#febc2e">8922ms</tspan></text>
+    <text x="20" y="358" fill="#ccc">  Total latency:      <tspan fill="#febc2e">12029ms</tspan></text>
+    <text x="20" y="376" fill="#ccc">  Safety overhead:    <tspan fill="#FF6B35">3107ms</tspan> (<tspan fill="#FF6B35">25.8%</tspan> of total)</text>
+
+    <!-- Key insight -->
+    <text x="20" y="412" fill="#6af">════════════════════════════════════════════════════════</text>
+    <text x="20" y="430" fill="#fff" font-weight="bold">  KEY INSIGHT</text>
+    <text x="20" y="452" fill="#28c840">  Dedicated safety model adds minimal latency overhead</text>
+    <text x="20" y="470" fill="#28c840">  Faster, cheaper, more reliable as a separate service.</text>
+  </g>
+</svg>

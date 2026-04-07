@@ -70,6 +70,36 @@ NVIDIA's Nemotron 3 family demonstrates a production-ready alternative — purpo
 ### Diagrams
 - [`diagrams/`](/diagrams/) — Mermaid source files and rendered SVGs for all architecture diagrams
 
+## Example Output
+
+### 01 — Specialized Routing
+Each query is classified and dispatched to the right-sized model:
+
+<p align="center">
+  <img src="images/output_01_router.svg" alt="Specialized Routing Output" width="800"/>
+</p>
+
+### 02 — Safety-as-a-Service
+A lightweight safety classifier runs input/output checks with minimal overhead:
+
+<p align="center">
+  <img src="images/output_02_safety.svg" alt="Safety Classifier Output" width="800"/>
+</p>
+
+### 03 — Multimodal RAG Pipeline
+Three-stage retrieval: Embed (1.7B) → Rerank (1.7B) → Reason (12B):
+
+<p align="center">
+  <img src="images/output_03_rag.svg" alt="Multimodal RAG Output" width="800"/>
+</p>
+
+### 04 — Cost Benchmark
+Side-by-side comparison shows 45.8% cost reduction with specialized models:
+
+<p align="center">
+  <img src="images/output_04_cost.svg" alt="Cost Benchmark Output" width="800"/>
+</p>
+
 ## Quick Start
 
 ```bash
