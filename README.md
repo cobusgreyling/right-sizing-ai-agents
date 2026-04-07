@@ -30,21 +30,21 @@ NVIDIA's Nemotron 3 family demonstrates a production-ready alternative — purpo
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    AGENTIC AI STACK                      │
+│                    AGENTIC AI STACK                     │
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
-│  ┌─────────────┐  ┌──────────────┐  ┌───────────────┐  │
+│  ┌──────────────┐  ┌──────────────┐  ┌───────────────┐  │
 │  │  Nemotron 3  │  │  Nemotron 3  │  │  Nemotron 3   │  │
 │  │    Super     │  │   Content    │  │   VoiceChat   │  │
 │  │  (Reasoning) │  │   Safety     │  │   (Speech)    │  │
 │  │   12B active │  │     4B       │  │     12B       │  │
 │  └──────┬───────┘  └──────┬───────┘  └──────┬────────┘  │
-│         │                 │                 │            │
+│         │                 │                 │           │
 │  ┌──────┴─────────────────┴─────────────────┴────────┐  │
-│  │              Orchestration Layer                   │  │
+│  │              Orchestration Layer                  │  │
 │  └──────┬─────────────────┬─────────────────┬────────┘  │
-│         │                 │                 │            │
-│  ┌──────┴───────┐  ┌──────┴──────────┐  ┌──┴─────────┐ │
+│         │                 │                 │           │
+│  ┌──────┴───────┐  ┌──────┴──────────┐  ┌───┴─────────┐ │
 │  │ Llama Embed  │  │  Llama Rerank   │  │  NeMo Agent │ │
 │  │   VL (1.7B)  │  │   VL (1.7B)     │  │  Toolkit    │ │
 │  │ (Embeddings) │  │  (Reranking)    │  │ (Profiling) │ │
