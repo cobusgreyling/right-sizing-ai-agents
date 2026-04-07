@@ -113,11 +113,20 @@ pip install -r requirements.txt
 # Set your NVIDIA API key
 export NVIDIA_API_KEY="nvapi-your-key-here"
 
-# Run the specialized routing example
-python examples/01_specialized_routing/agent_router.py
+# Launch the interactive Streamlit demo
+make run
+# Or: streamlit run app.py
 
-# Run the cost comparison
+# Run individual examples
+python examples/01_specialized_routing/agent_router.py
 python examples/04_cost_comparison/cost_benchmark.py
+
+# Run tests
+make test
+
+# Or use Docker for one-command setup
+cp .env.example .env   # add your API key
+make docker
 ```
 
 ## Key Insights
@@ -140,6 +149,27 @@ Just as backend engineering evolved from monoliths to microservices — where ea
 2023: Bigger models, more capabilities (GPT-4, Claude 3)
 2025: Specialized stacks for production (Nemotron 3 family)
 2026: Right-sized agents as the default architecture
+```
+
+## Interactive Demo
+
+The Streamlit app (`app.py`) provides a browser-based UI to explore all four examples interactively. Enter your NVIDIA API key in the sidebar and switch between:
+
+- **Specialized Routing** — type a query and see which model it routes to
+- **Safety Classification** — watch the 3-step safety pipeline with live timing
+- **RAG Pipeline** — run embed → rerank → reason with real NVIDIA API calls
+- **Cost Benchmark** — compare monolith vs. specialized with adjustable scale
+
+```bash
+streamlit run app.py
+```
+
+## Testing
+
+44 unit tests cover the core logic (intent classification, safety parsing, cosine similarity, cost model math) without requiring API keys:
+
+```bash
+make test
 ```
 
 ## References

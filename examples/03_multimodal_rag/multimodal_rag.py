@@ -16,6 +16,7 @@ Usage:
 import os
 import time
 import numpy as np
+import requests
 from dataclasses import dataclass, field
 from openai import OpenAI
 
@@ -23,6 +24,7 @@ NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
 
 # Specialized models — each right-sized for its role
 EMBED_MODEL = "nvidia/llama-3.2-nv-embedqa-1b-v2"         # 1.7B params
+RERANK_MODEL = "nvidia/llama-3.2-nv-rerankqa-1b-v2"       # 1.7B params
 REASONING_MODEL = "nvidia/llama-3.3-nemotron-super-49b-v1"  # 12B active
 
 
@@ -234,7 +236,7 @@ def retrieve_by_embedding(
 
 
 # ---------------------------------------------------------------------------
-# Stage 2: Rerank (using reasoning model as cross-encoder proxy)
+# Stage 2: Rerank (dedicated 1.7B cross-encoder via NVIDIA Rerank API)
 # ---------------------------------------------------------------------------
 def rerank_results(
     client: OpenAI,
@@ -245,68 +247,55 @@ def rerank_results(
     """
     Stage 2: Cross-encoder reranking for precision.
 
-    In production with Llama Nemotron Rerank VL, this would be a
-    dedicated 1.7B cross-encoder. Here we simulate with a lightweight
-    relevance scoring prompt.
+    Uses the NVIDIA Rerank API with a dedicated 1.7B cross-encoder model,
+    which scores query-document relevance far more accurately than
+    vector similarity alone.
     """
-    print(f"\n  [STAGE 2] Cross-encoder reranking (top-{top_k})")
+    print(f"\n  [STAGE 2] Cross-encoder reranking with {RERANK_MODEL} (top-{top_k})")
     start = time.perf_counter()
 
-    # Build candidate list for reranking
-    candidate_texts = []
-    for i, r in enumerate(candidates):
-        candidate_texts.append(
-            f"[{i}] {r.document.title}: {r.document.content[:200]}"
-        )
+    # Build passages for the rerank API
+    passages = [
+        {"text": f"{r.document.title}: {r.document.content}"}
+        for r in candidates
+    ]
 
-    response = client.chat.completions.create(
-        model=REASONING_MODEL,
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "You are a relevance scorer. Given a query and candidate "
-                    "documents, return ONLY a JSON array of document indices "
-                    "ordered by relevance (most relevant first). "
-                    "Example: [2, 0, 4, 1, 3]"
-                ),
-            },
-            {
-                "role": "user",
-                "content": (
-                    f"Query: {query}\n\n"
-                    f"Candidates:\n" + "\n".join(candidate_texts)
-                ),
-            },
-        ],
-        temperature=0.0,
-        max_tokens=64,
-    )
-
-    elapsed = (time.perf_counter() - start) * 1000
-
-    # Parse reranked order
-    import json
-    raw = response.choices[0].message.content.strip()
-    if raw.startswith("```"):
-        raw = raw.split("```")[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
+    api_key = os.environ.get("NVIDIA_API_KEY", "")
     try:
-        order = json.loads(raw)
+        resp = requests.post(
+            f"{NVIDIA_BASE_URL}/ranking",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": RERANK_MODEL,
+                "query": {"text": query},
+                "passages": passages,
+            },
+        )
+        resp.raise_for_status()
+        rankings = resp.json().get("rankings", [])
+        # Sort by logit score descending
+        rankings.sort(key=lambda r: r["logit"], reverse=True)
+
         reranked = []
-        for idx in order[:top_k]:
+        for rank in rankings[:top_k]:
+            idx = rank["index"]
             if 0 <= idx < len(candidates):
                 result = candidates[idx]
                 result.stage = "rerank"
+                result.similarity_score = rank["logit"]
                 reranked.append(result)
-    except (json.JSONDecodeError, IndexError):
-        # Fallback: keep original order
+    except Exception as e:
+        print(f"  [STAGE 2] Rerank API error: {e}. Falling back to embedding order.")
         reranked = candidates[:top_k]
+
+    elapsed = (time.perf_counter() - start) * 1000
 
     print(f"  [STAGE 2] Reranked to {len(reranked)} results in {elapsed:.0f}ms")
     for r in reranked:
-        print(f"            {r.document.title}")
+        print(f"            {r.similarity_score:.4f} — {r.document.title}")
 
     return reranked
 
@@ -418,8 +407,9 @@ def main():
     print("  KEY INSIGHT")
     print("=" * 60)
     print("  Three-stage pipeline: 1.7B → 1.7B → 12B")
-    print("  Embedding & reranking use lightweight specialists.")
-    print("  Only the final answer generation needs the reasoning model.")
+    print("  Embedding (1.7B) and reranking (1.7B cross-encoder) are real")
+    print("  NVIDIA API calls — no simulation. Only the final answer")
+    print("  generation uses the reasoning model (12B active).")
     print("  Total cost: ~10% of routing everything through a 400B model.")
     print()
 
