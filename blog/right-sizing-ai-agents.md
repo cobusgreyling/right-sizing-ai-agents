@@ -93,30 +93,28 @@ Rather than cascading separate ASR → LLM → TTS pipelines, VoiceChat is an en
 If this architecture sounds familiar, it should. Backend engineering went through this exact evolution:
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│                                                                  │
-│   BACKEND EVOLUTION              AI EVOLUTION                    │
-│                                                                  │
-│   2005: Monolith                 2020: GPT-3 does everything     │
-│   ┌─────────────────┐           ┌─────────────────┐             │
-│   │   One big app    │           │  One big model   │             │
-│   │   does everything│           │  does everything │             │
-│   └─────────────────┘           └─────────────────┘             │
-│           │                              │                       │
-│           ▼                              ▼                       │
-│   2015: Microservices            2026: Specialized Agents        │
-│   ┌──────┐ ┌──────┐ ┌──────┐   ┌──────┐ ┌──────┐ ┌──────┐     │
-│   │Auth  │ │Search│ │Pay   │   │Reason│ │Safety│ │Embed │     │
-│   │Svc   │ │Svc   │ │Svc   │   │ 12B  │ │ 4B   │ │ 1.7B │     │
-│   └──────┘ └──────┘ └──────┘   └──────┘ └──────┘ └──────┘     │
-│                                                                  │
-│   Benefits:                      Benefits:                       │
-│   • Scale independently         • Right-sized for task           │
-│   • Deploy independently        • Cost-efficient at scale        │
-│   • Right tool for the job      • Faster inference per call      │
-│   • Fault isolation             • Independent optimization       │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────┐
+│                    AGENTIC AI STACK                     │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌──────────────┐  ┌──────────────┐  ┌───────────────┐  │
+│  │  Nemotron 3  │  │  Nemotron 3  │  │  Nemotron 3   │  │
+│  │    Super     │  │   Content    │  │   VoiceChat   │  │
+│  │  (Reasoning) │  │   Safety     │  │   (Speech)    │  │
+│  │   12B active │  │     4B       │  │     12B       │  │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬────────┘  │
+│         │                 │                 │           │
+│  ┌──────┴─────────────────┴─────────────────┴────────┐  │
+│  │              Orchestration Layer                  │  │
+│  └──────┬─────────────────┬─────────────────┬────────┘  │
+│         │                 │                 │           │
+│  ┌──────┴───────┐  ┌──────┴──────────┐  ┌───┴─────────┐ │
+│  │ Llama Embed  │  │  Llama Rerank   │  │  NeMo Agent │ │
+│  │   VL (1.7B)  │  │   VL (1.7B)     │  │  Toolkit    │ │
+│  │ (Embeddings) │  │  (Reranking)    │  │ (Profiling) │ │
+│  └──────────────┘  └─────────────────┘  └─────────────┘ │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
 ```
 
 The lessons transfer directly:
