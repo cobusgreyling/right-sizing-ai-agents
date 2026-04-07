@@ -1,7 +1,7 @@
 # Right-Sizing AI Agents: Why Specialization Beats Scale
 
 <p align="center">
-  <img src="images/hero_banner.svg" alt="Right-Sizing AI Agents" width="800"/>
+  <img src="images/2026-04-07_19-11-27.jpg" alt="Right-Sizing AI Agents" width="800"/>
 </p>
 
 > **The company that sells bigger GPUs is now advocating for smaller, specialized models.** NVIDIA's Nemotron 3 stack activates only 12B of 120B parameters per call, uses a 4B safety classifier, and 1.7B embedding models. The thesis: production agents make hundreds of calls per task — efficiency per call matters more than raw capability.
