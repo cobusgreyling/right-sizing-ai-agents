@@ -16,39 +16,42 @@ import streamlit as st
 import numpy as np
 from openai import OpenAI
 
-# ---------------------------------------------------------------------------
-# Shared config
-# ---------------------------------------------------------------------------
-NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
+from config import (
+    NVIDIA_BASE_URL,
+    REASONING_MODEL,
+    SAFETY_MODEL,
+    EMBED_MODEL,
+    RERANK_MODEL,
+    SAFETY_TAXONOMY,
+    INTENT_KEYWORDS,
+    classify_intent,
+)
 
+# ---------------------------------------------------------------------------
+# Model registry (UI-specific labels layered on top of shared config)
+# ---------------------------------------------------------------------------
 MODELS = {
     "reasoning": {
-        "model": "nvidia/llama-3.3-nemotron-super-49b-v1",
+        "model": REASONING_MODEL,
         "label": "Nemotron Super (12B active / 120B total)",
         "params": "12B active",
     },
     "safety": {
-        "model": "nvidia/llama-3.1-nemotron-nano-8b-v1",
+        "model": SAFETY_MODEL,
         "label": "Nemotron Nano (8B)",
         "params": "8B",
     },
     "embedding": {
-        "model": "nvidia/llama-3.2-nv-embedqa-1b-v2",
+        "model": EMBED_MODEL,
         "label": "Embed VL (1.7B)",
         "params": "1.7B",
     },
     "reranking": {
-        "model": "nvidia/llama-3.2-nv-rerankqa-1b-v2",
+        "model": RERANK_MODEL,
         "label": "Rerank VL (1.7B)",
         "params": "1.7B",
     },
 }
-
-SAFETY_TAXONOMY = [
-    "hate_speech", "harassment", "violence", "sexual_content",
-    "misinformation", "unauthorized_advice", "self_harm",
-    "illegal_activity", "personal_data", "profanity",
-]
 
 KNOWLEDGE_BASE = [
     {"id": "doc_1", "title": "Nemotron 3 Super Architecture", "content": "Nemotron 3 Super is a hybrid Mamba-Transformer mixture-of-experts model with 120B total parameters but only 12B active per inference pass. It features a 1M-token context window, configurable thinking budget for bounded chain-of-thought reasoning, and multi-token prediction for faster generation."},
@@ -69,24 +72,6 @@ def get_client() -> OpenAI:
     if not api_key:
         return None
     return OpenAI(base_url=NVIDIA_BASE_URL, api_key=api_key)
-
-
-# ---------------------------------------------------------------------------
-# Intent classification (shared with Example 01)
-# ---------------------------------------------------------------------------
-INTENT_KEYWORDS = {
-    "reasoning": ["analyze", "compare", "plan", "explain why", "reason", "think through", "step by step", "evaluate", "design"],
-    "safety": ["is this safe", "check content", "moderate", "filter", "appropriate", "harmful", "toxic", "classify safety"],
-    "embedding": ["embed", "vector", "similarity", "search documents", "find similar", "retrieve", "semantic search"],
-}
-
-
-def classify_intent(query: str) -> str:
-    query_lower = query.lower()
-    scores = {intent: sum(1 for kw in keywords if kw in query_lower)
-              for intent, keywords in INTENT_KEYWORDS.items()}
-    best = max(scores, key=scores.get)
-    return best if scores[best] > 0 else "general"
 
 
 # ---------------------------------------------------------------------------
@@ -477,7 +462,6 @@ def main():
                                      help="Get a free key at build.nvidia.com")
     if api_key:
         st.session_state["api_key"] = api_key
-        os.environ["NVIDIA_API_KEY"] = api_key
 
     page = st.sidebar.radio("Example", [
         "Specialized Routing",

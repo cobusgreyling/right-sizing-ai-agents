@@ -11,32 +11,42 @@ Usage:
 """
 
 import os
+import sys
 import json
 from openai import OpenAI
 
-NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
+
+from config import (
+    NVIDIA_BASE_URL,
+    REASONING_MODEL,
+    SAFETY_MODEL,
+    EMBED_MODEL,
+    INTENT_KEYWORDS,
+    classify_intent,
+)
 
 # ---------------------------------------------------------------------------
 # Model registry — each model is right-sized for its role
 # ---------------------------------------------------------------------------
 MODELS = {
     "reasoning": {
-        "model": "nvidia/llama-3.3-nemotron-super-49b-v1",
+        "model": REASONING_MODEL,
         "description": "Complex reasoning, planning, and generation",
         "params": "12B active / 120B total",
     },
     "safety": {
-        "model": "nvidia/llama-3.1-nemotron-nano-8b-v1",
+        "model": SAFETY_MODEL,
         "description": "Content safety classification",
         "params": "8B",
     },
     "embedding": {
-        "model": "nvidia/llama-3.2-nv-embedqa-1b-v2",
+        "model": EMBED_MODEL,
         "description": "Text and image embedding for retrieval",
         "params": "1.7B",
     },
     "general": {
-        "model": "nvidia/llama-3.3-nemotron-super-49b-v1",
+        "model": REASONING_MODEL,
         "description": "General-purpose responses",
         "params": "12B active",
     },
@@ -52,43 +62,6 @@ def get_client() -> OpenAI:
             "Get one free at https://build.nvidia.com"
         )
     return OpenAI(base_url=NVIDIA_BASE_URL, api_key=api_key)
-
-
-# ---------------------------------------------------------------------------
-# Intent classifier — lightweight routing logic
-# ---------------------------------------------------------------------------
-INTENT_KEYWORDS = {
-    "reasoning": [
-        "analyze", "compare", "plan", "explain why", "reason",
-        "think through", "step by step", "evaluate", "design",
-    ],
-    "safety": [
-        "is this safe", "check content", "moderate", "filter",
-        "appropriate", "harmful", "toxic", "classify safety",
-    ],
-    "embedding": [
-        "embed", "vector", "similarity", "search documents",
-        "find similar", "retrieve", "semantic search",
-    ],
-}
-
-
-def classify_intent(query: str) -> str:
-    """
-    Classify user intent to route to the right specialized model.
-
-    In production, this could itself be a small classifier model.
-    Here we use keyword matching for transparency.
-    """
-    query_lower = query.lower()
-    scores = {}
-    for intent, keywords in INTENT_KEYWORDS.items():
-        scores[intent] = sum(1 for kw in keywords if kw in query_lower)
-
-    best_intent = max(scores, key=scores.get)
-    if scores[best_intent] == 0:
-        return "general"
-    return best_intent
 
 
 # ---------------------------------------------------------------------------

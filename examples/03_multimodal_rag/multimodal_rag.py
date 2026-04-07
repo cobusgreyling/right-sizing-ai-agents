@@ -14,18 +14,21 @@ Usage:
 """
 
 import os
+import sys
 import time
 import numpy as np
 import requests
 from dataclasses import dataclass, field
 from openai import OpenAI
 
-NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-# Specialized models — each right-sized for its role
-EMBED_MODEL = "nvidia/llama-3.2-nv-embedqa-1b-v2"         # 1.7B params
-RERANK_MODEL = "nvidia/llama-3.2-nv-rerankqa-1b-v2"       # 1.7B params
-REASONING_MODEL = "nvidia/llama-3.3-nemotron-super-49b-v1"  # 12B active
+from config import (
+    NVIDIA_BASE_URL,
+    REASONING_MODEL,
+    EMBED_MODEL,
+    RERANK_MODEL,
+)
 
 
 @dataclass

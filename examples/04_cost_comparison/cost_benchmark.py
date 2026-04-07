@@ -11,18 +11,26 @@ Usage:
 """
 
 import os
+import sys
 import time
 from dataclasses import dataclass
 from openai import OpenAI
 
-NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
+
+from config import (
+    NVIDIA_BASE_URL,
+    REASONING_MODEL,
+    SAFETY_MODEL,
+    EMBED_MODEL,
+)
 
 # ---------------------------------------------------------------------------
 # Model configurations with estimated costs
 # ---------------------------------------------------------------------------
 # Pricing is illustrative based on typical API pricing tiers
 MONOLITH_MODEL = {
-    "name": "nvidia/llama-3.3-nemotron-super-49b-v1",
+    "name": REASONING_MODEL,
     "label": "Monolith (Large Model for Everything)",
     "cost_per_1k_input": 0.005,    # $/1K input tokens
     "cost_per_1k_output": 0.015,   # $/1K output tokens
@@ -30,19 +38,19 @@ MONOLITH_MODEL = {
 
 SPECIALIZED_MODELS = {
     "reasoning": {
-        "name": "nvidia/llama-3.3-nemotron-super-49b-v1",
+        "name": REASONING_MODEL,
         "label": "Nemotron Super (Reasoning)",
         "cost_per_1k_input": 0.005,
         "cost_per_1k_output": 0.015,
     },
     "safety": {
-        "name": "nvidia/llama-3.1-nemotron-nano-8b-v1",
+        "name": SAFETY_MODEL,
         "label": "Nemotron Nano (Safety)",
         "cost_per_1k_input": 0.001,
         "cost_per_1k_output": 0.002,
     },
     "embedding": {
-        "name": "nvidia/llama-3.2-nv-embedqa-1b-v2",
+        "name": EMBED_MODEL,
         "label": "Embed VL (Retrieval)",
         "cost_per_1k_input": 0.0003,
         "cost_per_1k_output": 0.0,

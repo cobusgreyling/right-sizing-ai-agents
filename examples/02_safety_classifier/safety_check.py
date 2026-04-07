@@ -13,27 +13,19 @@ Usage:
 """
 
 import os
+import sys
 import time
 from dataclasses import dataclass
 from openai import OpenAI
 
-NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-SAFETY_MODEL = "nvidia/llama-3.1-nemotron-nano-8b-v1"
-REASONING_MODEL = "nvidia/llama-3.3-nemotron-super-49b-v1"
-
-SAFETY_TAXONOMY = [
-    "hate_speech",
-    "harassment",
-    "violence",
-    "sexual_content",
-    "misinformation",
-    "unauthorized_advice",
-    "self_harm",
-    "illegal_activity",
-    "personal_data",
-    "profanity",
-]
+from config import (
+    NVIDIA_BASE_URL,
+    REASONING_MODEL,
+    SAFETY_MODEL,
+    SAFETY_TAXONOMY,
+)
 
 
 @dataclass
