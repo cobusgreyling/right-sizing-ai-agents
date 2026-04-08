@@ -12,7 +12,6 @@ Usage:
 
 import os
 import sys
-import json
 from openai import OpenAI
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -22,7 +21,6 @@ from config import (
     REASONING_MODEL,
     SAFETY_MODEL,
     EMBED_MODEL,
-    INTENT_KEYWORDS,
     classify_intent,
 )
 

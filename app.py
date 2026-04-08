@@ -23,7 +23,6 @@ from config import (
     EMBED_MODEL,
     RERANK_MODEL,
     SAFETY_TAXONOMY,
-    INTENT_KEYWORDS,
     classify_intent,
 )
 
@@ -189,7 +188,7 @@ def page_safety():
 
         # Step 3: Output safety
         start = time.perf_counter()
-        output_resp = client.chat.completions.create(
+        client.chat.completions.create(
             model=MODELS["safety"]["model"],
             messages=[
                 {"role": "system", "content": f"You are a content safety classifier. Respond with ONLY JSON: {{\"is_safe\": true/false, \"categories\": [], \"confidence\": 0.95}}. Valid categories: {', '.join(SAFETY_TAXONOMY)}"},

@@ -374,7 +374,7 @@ def rag_pipeline(client: OpenAI, query: str, documents: list[Document]) -> str:
     total_ms = (time.perf_counter() - pipeline_start) * 1000
     print(f"\n  Total pipeline latency: {total_ms:.0f}ms")
     print(f"  Documents in knowledge base: {len(documents)}")
-    print(f"  Stage 1 candidates: 5 | Stage 2 reranked: 3")
+    print("  Stage 1 candidates: 5 | Stage 2 reranked: 3")
 
     return answer
 

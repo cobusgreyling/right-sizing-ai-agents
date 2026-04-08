@@ -30,7 +30,6 @@ from config import (
     REASONING_MODEL,
     SAFETY_MODEL,
     EMBED_MODEL,
-    classify_intent,
 )
 
 

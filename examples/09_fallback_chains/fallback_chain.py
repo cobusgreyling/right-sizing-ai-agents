@@ -268,8 +268,6 @@ def main():
     tier1_count = sum(1 for r in all_results if r.final_tier == 1)
     total_cost = sum(r.total_cost for r in all_results)
     # Hypothetical cost if everything went to the largest model
-    mono_cost = total_cost * 2.5  # rough approximation
-
     print(f"\n  Resolved at Tier 1 (small model): {tier1_count}/{len(all_results)}")
     print(f"  Total cost: ${total_cost:.5f}")
     print()

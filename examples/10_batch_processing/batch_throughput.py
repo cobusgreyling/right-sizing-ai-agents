@@ -26,7 +26,6 @@ from config import (
     NVIDIA_BASE_URL,
     REASONING_MODEL,
     SAFETY_MODEL,
-    EMBED_MODEL,
     classify_intent,
 )
 
@@ -273,7 +272,7 @@ def print_report(mono: BatchReport, parallel: BatchReport):
     print(f"\n  Speedup: {speedup:.1f}x wall-clock time improvement")
 
     # Category breakdown
-    print(f"\n  CATEGORY BREAKDOWN (parallel specialized)")
+    print("\n  CATEGORY BREAKDOWN (parallel specialized)")
     print("  " + "-" * 50)
     categories = {}
     for r in parallel.results:
